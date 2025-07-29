@@ -1,0 +1,131 @@
+.contents-container {
+    margin-left: 250px;
+    margin-top: 90px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    min-height: 100vh;
+    justify-content: flex-start;  /* 가로 방향으로 왼쪽 정렬 */
+    align-items: flex-start;      /* 세로 방향으로 위쪽 정렬 */
+  }
+  
+  .contents-wrapper {
+    width: 100%;
+    max-width: none;         /* 제한 폭 제거 */
+    margin: 0;               /* 가운데 정렬 제거 */
+  }
+  
+  
+  /* 내부 콘텐츠 영역 */
+  .contents-wrapper {
+    max-width: 960px;
+  }
+  
+  /* 제목 */
+  .contents-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  /* 필터 버튼 영역 */
+  .filter-button-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  
+  /* 공통 버튼 스타일 */
+  .filter-button {
+    padding: 8px 16px;
+    border-radius: 999px;
+    background-color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  
+  /* 활성화 상태별 스타일 */
+  .active-all {
+    background-color: black;
+    color: white;
+  }
+  
+  .active-naver {
+    background-color: #10b981;
+    color: white;
+  }
+  
+  .active-instagram {
+    background-color: #ec4899;
+    color: white;
+  }
+  
+  /* 카드 영역 */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  @media (min-width: 768px) {
+    .card-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  /* 개별 콘텐츠 카드 */
+  .content-card {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    padding: 16px;
+    transition: box-shadow 0.2s ease;
+  }
+  
+  .content-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  
+  /* 썸네일 이미지 */
+  .content-thumbnail {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  
+  /* 콘텐츠 제목 */
+  .content-title {
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin-top: 12px;
+  }
+  
+  /* 외부 링크 */
+  .content-link {
+    color: #3b82f6;
+    display: block;
+    margin-top: 4px;
+    text-decoration: none;
+  }
+  
+  .content-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* 게시일 */
+  .content-date {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 4px;
+  }
+  
+  /* 콘텐츠 없을 때 문구 */
+  .no-content {
+    color: #9ca3af;
+    font-size: 1rem;
+  }
+  

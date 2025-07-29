@@ -1,24 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import LayoutWithHeader from './layouts/HeaderLayout'; // 헤더
+import LayoutWithSidebar from './layouts/SidebarLayout'; // 헤더 + 레프트바
+import OnboardingRoutes from './routes/OnboardingRoutes';
+import Home from './pages/Home';
+import HomeLogin from './pages/HomeLogin';
+import Login from './pages/Login';
+import Alarm from './pages/alarm';
+import Profile from './pages/profile';
+import Contents from './pages/Contents';
+import Apply from './pages/Apply';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <AppRoutes />
+    </Router>
+  );
+}
+
+function AppRoutes() {
+  const location = useLocation();
+
+  const path = location.pathname;
+
+  if (path.startsWith('/onboarding')) {
+    // 온보딩 경로는 아무 레이아웃도 없음
+    return (
+      <Routes>
+        <Route path="/onboarding/*" element={<OnboardingRoutes />} />
+      </Routes>
+    );
+  }
+
+  if (path === '/login') {
+    // 로그인 페이지는 헤더만
+    return (
+      <Routes>
+        <Route element={<LayoutWithHeader />}>
+          <Route path="/login" element={<Login />} />
+        </Route>
+      </Routes>
+    );
+  }
+
+  // 기본: 헤더 + 레프트바 (SidebarLayout 사용)
+  return (
+    <Routes>
+      <Route element={<LayoutWithSidebar />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/alarm" element={<Alarm />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/contents" element={<Contents />} />
+        <Route path='/HomeLogin' element={<HomeLogin />} />
+        <Route path='/Apply' element={<Apply />} />
+        {/* 필요한 페이지 추가 */}
+      </Route>
+    </Routes>
   );
 }
 

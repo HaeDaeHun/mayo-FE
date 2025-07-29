@@ -1,0 +1,9 @@
+.Onboarding_container{
+    position: relative;
+    width: 466px;
+    height: 852px;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
