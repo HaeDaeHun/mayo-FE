@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SuspenseLoading from "../../components/common/SuspenseLoading";
+import SuspenseLoading from "../components/common/SuspenseLoading";
 
 export default function KakaoCallback() {
   const navigate = useNavigate();
