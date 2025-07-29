@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SuspenseLoading from "../components/common/SuspenseLoading";
 
@@ -7,8 +7,11 @@ export default function KakaoCallback() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("Current URL:", window.location.href);
     // URL에서 토큰 정보(백엔드가 붙여준 쿼리) 가져오기
     const params = new URLSearchParams(window.location.search);
+
+    console.log("location.search:", window.location.search);
     const accessToken = params.get("accessToken");
     const expiresIn   = params.get("expiresIn");
     const isNewUser   = params.get("isNewUser") === "true";
