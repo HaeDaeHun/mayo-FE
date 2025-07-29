@@ -1,17 +1,23 @@
-// src/App.js
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import LayoutWithHeader from './layouts/HeaderLayout';      // 헤더만
-import LayoutWithSidebar from './layouts/SidebarLayout';    // 헤더 + 사이드바
-import OnboardingRoutes from './routes/OnboardingRoutes';
-import Home from './pages/Home';
-import HomeLogin from './pages/HomeLogin';
-import Login from './pages/Login';
-import KakaoCallback from './pages/KakaoCallback';         // 콜백 컴포넌트
-import Alarm from './pages/alarm';
-import Profile from './pages/profile';
-import Contents from './pages/Contents';
-import Apply from './pages/Apply';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+
+import LayoutWithHeader from "./layouts/HeaderLayout";
+import LayoutWithSidebar from "./layouts/SidebarLayout";
+import OnboardingRoutes from "./routes/OnboardingRoutes";
+
+import Home from "./pages/Home";
+import HomeLogin from "./pages/HomeLogin";
+import Login from "./pages/Login";
+import KakaoCallback from "./pages/KakaoCallback";
+import Alarm from "./pages/Alarm";
+import Profile from "./pages/Profile";
+import Contents from "./pages/Contents";
+import Apply from "./pages/Apply";
 
 function App() {
   return (
@@ -22,11 +28,9 @@ function App() {
 }
 
 function AppRoutes() {
-  const location = useLocation();
-  const path = location.pathname;
+  const { pathname } = useLocation();
 
-  // 1) 온보딩: 레이아웃 없음
-  if (path.startsWith('/onboarding')) {
+  if (pathname.startsWith("/onboarding")) {
     return (
       <Routes>
         <Route path="/onboarding/*" element={<OnboardingRoutes />} />
@@ -34,17 +38,18 @@ function AppRoutes() {
     );
   }
 
-  // 2) 카카오 콜백: 레이아웃 없이 처리
-  if (path === '/login/oauth2/code/kakao') {
+  if (pathname === "/login/oauth2/code/kakao") {
     return (
       <Routes>
-        <Route path="/login/oauth2/code/kakao" element={<KakaoCallback />} />
+        <Route
+          path="/login/oauth2/code/kakao"
+          element={<KakaoCallback />}
+        />
       </Routes>
     );
   }
 
-  // 3) 로그인 페이지: 헤더만
-  if (path === '/login') {
+  if (pathname === "/login") {
     return (
       <Routes>
         <Route element={<LayoutWithHeader />}>
@@ -54,7 +59,6 @@ function AppRoutes() {
     );
   }
 
-  // 4) 그 외: 헤더 + 사이드바
   return (
     <Routes>
       <Route element={<LayoutWithSidebar />}>
@@ -64,7 +68,6 @@ function AppRoutes() {
         <Route path="/contents" element={<Contents />} />
         <Route path="/HomeLogin" element={<HomeLogin />} />
         <Route path="/Apply" element={<Apply />} />
-        {/* 필요한 페이지 추가 */}
       </Route>
     </Routes>
   );
