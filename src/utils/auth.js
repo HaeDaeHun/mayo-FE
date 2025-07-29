@@ -2,6 +2,7 @@
 export function getToken() {
     return localStorage.getItem('token');
   }
+<<<<<<< HEAD
   
 // 인증 관련 유틸리티 함수들
 
@@ -65,4 +66,6 @@ export const requireAuth = (navigate) => {
   }
   return true;
 };
+=======
+>>>>>>> ad039675cc7ed20c6e6be5458f1e3cbb6c54eb93
   
