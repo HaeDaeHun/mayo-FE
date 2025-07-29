@@ -96,3 +96,13 @@
   font-weight: bold;
   color: #333;
 }
+
+.submit-button {
+    padding: 12px 24px;
+    background-color: #FFDD04;
+    color: black;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+  }
