@@ -24,12 +24,20 @@ export default function Header() {
     }
 
     window.Kakao.Auth.login({
+<<<<<<< HEAD
       scope: 'profile_nickname',
+=======
+      scope: 'profile_nickname, account_email',
+>>>>>>> ad039675cc7ed20c6e6be5458f1e3cbb6c54eb93
       success: function (authObj) {
         console.log('카카오 로그인 성공', authObj);
 
         // access_token → 백엔드 전달
+<<<<<<< HEAD
         fetch('https://api.mayo.n-e.kr/oauth2/authorization/kakao', {
+=======
+        fetch('https://your-backend.com/auth/kakao', {
+>>>>>>> ad039675cc7ed20c6e6be5458f1e3cbb6c54eb93
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
