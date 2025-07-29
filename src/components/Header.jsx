@@ -60,8 +60,16 @@ export default function Header() {
         </a>
       </h1>
       <nav className="nav">
-        <a href="/onboarding/step1">온보딩 테스트</a>
-
+        <div className="icon" style={{marginTop: '5px'}}>
+          <a href="/alarm">
+            <img src="/alarm.png" alt="alarm" />
+          </a>
+        </div>
+        
+        <div style={{marginTop: '7px'}}>
+          <a href="/onboarding/step1">온보딩 테스트</a>
+        </div>
+        
         {/* 로그인은 버튼으로 처리 */}
         <button
           onClick={handleKakaoLogin}

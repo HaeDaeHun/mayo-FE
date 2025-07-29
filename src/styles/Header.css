@@ -43,3 +43,9 @@
     height: 30px;
     transition: transform 0.2s;
   }
+  .icon a img {
+    width: 25px;
+    height: 25px;
+    transition: transform 0.2s;
+  }
+  
