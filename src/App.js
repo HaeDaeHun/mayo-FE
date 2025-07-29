@@ -15,7 +15,7 @@ import HomeLogin from "./pages/HomeLogin";
 import Login from "./pages/Login";
 import KakaoCallback from "./pages/KakaoCallback";
 // import Alarm from "./pages/Alarm";
-import Profile from "./pages/Profile";
+// import Profile from "./pages/Profile";
 import Contents from "./pages/Contents";
 import Apply from "./pages/Apply";
 
@@ -64,7 +64,7 @@ function AppRoutes() {
       <Route element={<LayoutWithSidebar />}>
         <Route path="/" element={<Home />} />
         {/* <Route path="/alarm" element={<Alarm />} /> */}
-        <Route path="/profile" element={<Profile />} />
+        {/* <Route path="/profile" element={<Profile />} /> */}
         <Route path="/contents" element={<Contents />} />
         <Route path="/HomeLogin" element={<HomeLogin />} />
         <Route path="/Apply" element={<Apply />} />
