@@ -1,0 +1,50 @@
+.leftbar {
+  margin-top: 90px;
+  width: 228px;
+  background-color: #FFFCF1;
+  color: black;
+  padding: 20px;
+  box-sizing: border-box;
+  border-right: 1px solid #e0e0e0;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.leftbar h2 {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: #ecf0f1;
+  list-style: none;
+}
+
+.leftbar a {
+  color: black;
+  text-decoration: none;
+  font-size: 32px;
+  transition: color 0.2s ease;
+}
+
+.sidebar-button {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.sidebar-button span {
+  font-size: 14px;
+  color: black;
+}
+
+.sidebar-button img {
+  width: 24px;
+  height: 24px;
+}
