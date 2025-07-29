@@ -17,12 +17,12 @@ export default function Login() {
 
   const loginWithKakao = () => {
     window.Kakao.Auth.login({
-      scope: 'profile_nickname, account_email',
+      scope: 'profile_nickname',
       success: function (authObj) {
         console.log('카카오 로그인 성공', authObj);
 
         // access_token 백엔드에 전달
-        fetch('https://your-backend.com/auth/kakao', {
+        fetch('https://api.mayo.n-e.kr/oauth2/authorization/kakao', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

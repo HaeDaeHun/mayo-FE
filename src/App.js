@@ -10,6 +10,7 @@ import Alarm from './pages/alarm';
 import Profile from './pages/profile';
 import Contents from './pages/Contents';
 import Apply from './pages/Apply';
+import OAuthCallback from './pages/OAuthCallback'; // OAuth 콜백 처리 컴포넌트 추가
 
 function App() {
   return (
@@ -40,6 +41,15 @@ function AppRoutes() {
         <Route element={<LayoutWithHeader />}>
           <Route path="/login" element={<Login />} />
         </Route>
+      </Routes>
+    );
+  }
+
+  if (path === '/api/oauth') {
+    // OAuth 콜백 처리 - 레이아웃 없음
+    return (
+      <Routes>
+        <Route path="/api/oauth" element={<OAuthCallback />} />
       </Routes>
     );
   }

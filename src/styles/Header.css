@@ -1,45 +1,50 @@
 /* Header.css */
 .header {
-    width: 100%;
-    height: 70px;
-    position: fixed;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 10px;
-    background-color: #fefefe;
-    border-bottom: 1px solid #e0e0e0;
-    left: 0;
-    top: 0;
-    z-index: 10;
-  }
-  
-  .logo {
-    padding-left: 30px;
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .nav {
-    padding-right: 50px;
-    display: flex;
-    gap: 50px;
-  }
-  
-  .nav a {
-    text-decoration: none;
-    color: #555;
-    font-size: 0.95rem;
-    transition: color 0.2s ease;
-  }
-  
-  .nav a:hover {
-    color: #000;
-  }
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px;
+  background-color: #fefefe;
+  border-bottom: 1px solid #e0e0e0;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
 
-  .logo a img {
-    width: 75px;
-    height: 30px;
-    transition: transform 0.2s;
-  }
+.logo {
+  padding-left: 30px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.nav {
+  padding-right: 50px;
+  display: flex;
+  gap: 50px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #555;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.nav a:hover {
+  color: #000;
+}
+
+.logo a img {
+  width: 75px;
+  height: 30px;
+  transition: transform 0.2s;
+}
+.icon a img {
+  width: 25px;
+  height: 25px;
+  transition: transform 0.2s;
+}
