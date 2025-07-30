@@ -1,31 +1,29 @@
-// utils/auth.js
+// src/utils/auth.js
+
+// accessToken 가져오기
 export function getToken() {
-    return localStorage.getItem('token');
-  }
-  
-// 인증 관련 유틸리티 함수들
+  return localStorage.getItem('accessToken');
+}
 
 // 토큰이 유효한지 확인
 export const isTokenValid = () => {
   const accessToken = localStorage.getItem('accessToken');
   const expiresAt = localStorage.getItem('expiresAt');
-  
+
   if (!accessToken) {
     return false;
   }
-  
-  // 토큰 만료 시간 확인
+
   if (expiresAt) {
     const now = Date.now();
-    const expirationTime = parseInt(expiresAt);
-    
+    const expirationTime = parseInt(expiresAt, 10);
+
     if (now >= expirationTime) {
-      // 토큰이 만료되었으므로 로컬 스토리지에서 제거
       clearAuthData();
       return false;
     }
   }
-  
+
   return true;
 };
 
@@ -43,11 +41,11 @@ export const getCurrentUser = () => {
   if (!isTokenValid()) {
     return null;
   }
-  
+
   return {
     userId: localStorage.getItem('userId'),
     accessToken: localStorage.getItem('accessToken'),
-    expiresIn: localStorage.getItem('expiresIn')
+    expiresIn: localStorage.getItem('expiresIn'),
   };
 };
 
@@ -57,7 +55,7 @@ export const logout = () => {
   window.location.href = '/';
 };
 
-// 인증이 필요한 페이지에서 사용할 훅
+// 인증이 필요한 페이지에서 사용할 훅 (함수)
 export const requireAuth = (navigate) => {
   if (!isTokenValid()) {
     navigate('/login');
@@ -65,4 +63,3 @@ export const requireAuth = (navigate) => {
   }
   return true;
 };
-  

@@ -11,7 +11,7 @@ function SellerRegion({ onboardingData, updateOnboardingData }) {
   };
 
   const handleNext = (item) => {
-    updateOnboardingData('region', item.label);  // ✅ 선택한 지역 저장
+    updateOnboardingData('region', item.value);  // ✅ 선택한 지역 저장
     navigate('/onboarding/seller/step4');        // ✅ 다음 단계 이동
   };
 

@@ -44,7 +44,7 @@ export default function Header() {
     // 백엔드 OAuth 엔드포인트로 리다이렉트
     const oauthUrl = 'https://api.mayo.n-e.kr/oauth2/authorization/kakao';
     console.log('Redirecting to OAuth endpoint:', oauthUrl);
-    window.location.href = oauthUrl;
+    window.location.href = 'https://api.mayo.n-e.kr/oauth2/authorization/kakao';
   };
 
   // 로그아웃 함수

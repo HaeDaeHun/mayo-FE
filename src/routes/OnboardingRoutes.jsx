@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Type from '../pages/onboarding/Type';
 import SellerBusinessType from '../pages/onboarding/SellerBusinessType';
 import SellerRegion from '../pages/onboarding/SellerRegion';
@@ -9,7 +10,6 @@ import StudentRegion from '../pages/onboarding/StudentRegion';
 export default function OnboardingRoutes() {
   const navigate = useNavigate();
 
-  // 모든 사용자 선택 저장 (전역 상태)
   const [onboardingData, setOnboardingData] = useState({});
 
   const updateOnboardingData = (key, value) => {
@@ -20,7 +20,7 @@ export default function OnboardingRoutes() {
   };
 
   const handleNext = (item) => {
-    updateOnboardingData('userType', item.label);
+    updateOnboardingData('userType', item.value);
 
     if (item.label.includes('소상공인')) {
       navigate('/onboarding/seller/step2');
@@ -71,9 +71,19 @@ export default function OnboardingRoutes() {
             onboardingData={onboardingData}
             updateOnboardingData={updateOnboardingData}
             onFinalSubmit={() => {
-              // 마지막 단계에서 저장
-              localStorage.setItem('onboarding', JSON.stringify(onboardingData));
-              // 또는 axios.post(...)
+              console.log('최종 제출 데이터', onboardingData);
+              // 백엔드 API 호출하여 저장
+              axios.post('/api/onboarding', onboardingData)
+                .then(response => {
+                  console.log('저장 성공:', response.data);
+                  alert('회원가입이 완료되었습니다!');
+                  // 저장 성공 후 필요한 동작 수행 (예: 메인 페이지 이동)
+                  navigate('/'); 
+                })
+                .catch(error => {
+                  console.error('저장 실패:', error);
+                  alert('저장 중 오류가 발생했습니다. 다시 시도해주세요.');
+                });
             }}
           />
         }

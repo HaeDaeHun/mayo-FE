@@ -22,10 +22,10 @@ function Type({ onBack, onNext }) {
         {/* 업종 버튼들 */}
         <div className={styles["industries-grid"]}>
             {사용자유형.map((item, index) => (
-                <button key={index} className={styles["industry-button"]} onClick={() => onNext(item)}>
-                    <span>{item.label}</span>
-                    <img src={item.icon} alt="" className={styles["industry-icon"]} />
-                </button>
+              <button key={index} className={styles["industry-button"]} onClick={() => onNext(item)}>
+                <span>{item.label}</span>
+                <img src={item.icon} alt="" className={styles["industry-icon"]} />
+              </button>
             ))}
         </div>
       </div>

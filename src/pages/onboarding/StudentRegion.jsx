@@ -17,11 +17,10 @@ function StudentRegion({ onboardingData, updateOnboardingData }) {
   };
 
   {/*데이터 전송 있어야 작동*/}
-  /*
   const handleSubmit = async () => {
     if (!selected) return;
-    updateOnboardingData('region', selected.label);
-    const finalData = { ...onboardingData, region: selected.label };
+    updateOnboardingData('region', selected.value);
+    const finalData = { ...onboardingData, region: selected.value };
 
     try {
       await submitOnboardingData(finalData);
@@ -31,19 +30,19 @@ function StudentRegion({ onboardingData, updateOnboardingData }) {
       console.error('온보딩 데이터 전송 실패:', error);
     }
   };
-  */
 
   {/*데이터 전송 필요없이 일단 이동*/}
+  /*
   const handleSubmit = () => {
     if (!selected) return;
   
-    updateOnboardingData('channel', selected.label);
-    const finalData = { ...onboardingData, channel: selected.label };
+    updateOnboardingData('channel', selected.value);
+    const finalData = { ...onboardingData, channel: selected.value };
   
     // 데이터 전송 없이 바로 이동
     localStorage.setItem('onboarding', JSON.stringify(finalData));
     navigate('/HomeLogin');
-  };  
+  };*/
 
   return (
     <div className={styles["onboarding-container"]}>

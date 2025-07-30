@@ -32,6 +32,35 @@ const marketers = [
   },
 ];
 
+// 레퍼런스 미리보기
+const contents = [
+  {
+    title: "인스타 릴스 광고 사례",
+    thumbnail: "/content1.jpg", // public 폴더에 넣어둘 것
+    link: "https://www.instagram.com/p/EXAMPLE1"
+  },
+  {
+    title: "블로그 체험단 리뷰",
+    thumbnail: "/content2.jpg",
+    link: "https://blog.naver.com/example"
+  },
+  {
+    title: "유튜브 숏츠 캠페인",
+    thumbnail: "/content3.jpg",
+    link: "https://www.youtube.com/watch?v=EXAMPLE3"
+  },
+  {
+    title: "SNS 바이럴 영상",
+    thumbnail: "/content4.jpg",
+    link: "https://www.instagram.com/p/EXAMPLE4"
+  },
+  {
+    title: "제품 소개 UGC",
+    thumbnail: "/content5.jpg",
+    link: "https://www.youtube.com/watch?v=EXAMPLE5"
+  },
+];
+
 function Home() {
   return (
     <div className="home-container">
@@ -58,11 +87,18 @@ function Home() {
         <h1>홍보 콘텐츠</h1>
         <Link to="/Contents">상세보기 →</Link>
         <div className="video-grid">
-          <div className="video-card">영상1</div>
-          <div className="video-card">영상2</div>
-          <div className="video-card">영상3</div>
-          <div className="video-card">영상4</div>
-          <div className="video-card">영상5</div>
+          {contents.map((c, i) => (
+            <a
+              className="video-card"
+              key={i}
+              href={c.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={c.thumbnail} alt={c.title} className="video-thumb" />
+              <div className="video-title">{c.title}</div>
+            </a>
+          ))}
         </div>
       </div>
     </div>

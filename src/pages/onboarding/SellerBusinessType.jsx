@@ -11,7 +11,7 @@ function SellerBusinessType({ onboardingData, updateOnboardingData }) {
   };
 
   const handleNext = (item) => {
-    updateOnboardingData('businessType', item.label); // 선택 저장
+    updateOnboardingData('businessType', item.value); // 선택 저장
     navigate('/onboarding/seller/step3');             // 다음으로 이동
   };
 

@@ -25,18 +25,17 @@ export default function OAuthCallback() {
       return;
     }
 
-    // 토큰을 로컬 스토리지에 저장
+    // 토큰 저장
     localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('expiresIn', expiresIn);
-    localStorage.setItem('userId', userId);
-
-    // 토큰 만료 시간 계산 및 저장
     if (expiresIn) {
-      const expiresAt = Date.now() + (parseInt(expiresIn) * 1000);
+      const expiresAt = Date.now() + parseInt(expiresIn, 10) * 1000;
       localStorage.setItem('expiresAt', expiresAt.toString());
     }
+    if (userId) {
+      localStorage.setItem('userId', userId);
+    }
 
-    // isNewUser에 따라 라우팅
+    // isNewUser 여부에 따라 이동
     if (isNewUser) {
       console.log('New user detected, redirecting to onboarding');
       navigate('/onboarding/step1');
@@ -62,4 +61,4 @@ export default function OAuthCallback() {
       </div>
     </div>
   );
-} 
+}

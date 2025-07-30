@@ -17,34 +17,37 @@ function SellerChannel({ onboardingData, updateOnboardingData }) {
   };
 
   {/*데이터 전송 필요한 코드*/}
-  /*
   const handleSubmit = async () => {
     if (!selected) return;
-
-    updateOnboardingData('channel', selected.label);
-    const finalData = { ...onboardingData, channel: selected.label };
-
+  
+    // 온보딩 데이터 + channel 추가
+    const finalData = {
+      ...onboardingData,
+      channel: selected.value // ✅ 백엔드 enum 값으로 넣기
+    };
+  
     try {
-      await submitOnboardingData(finalData);
+      await submitOnboardingData(finalData); // ✅ API 요청
       localStorage.setItem('onboarding', JSON.stringify(finalData));
-      navigate('/HomeLogin');
+      navigate('/HomeLogin'); // ✅ 홈 또는 완료 페이지로 이동
     } catch (error) {
-      console.error('전송 실패:', error);
+      console.error('온보딩 데이터 전송 실패:', error);
+      alert('제출 중 오류가 발생했어요. 다시 시도해주세요.');
     }
   };
-  */
+  
 
   {/*데이터 전송 필요없이 일단 이동*/}
-  const handleSubmit = () => {
+  /*const handleSubmit = () => {
     if (!selected) return;
   
-    updateOnboardingData('channel', selected.label);
-    const finalData = { ...onboardingData, channel: selected.label };
+    updateOnboardingData('channel', selected.value);
+    const finalData = { ...onboardingData, channel: selected.value };
   
     // 데이터 전송 없이 바로 이동
     localStorage.setItem('onboarding', JSON.stringify(finalData));
     navigate('/HomeLogin');
-  };  
+  };*/  
 
   return (
     <div className={styles["onboarding-container"]}>
