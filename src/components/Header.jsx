@@ -76,12 +76,6 @@ export default function Header() {
           <a href="/onboarding/step1">온보딩 테스트</a>
         </div>
         
-        <div style={{marginTop: '7px', marginLeft: '10px'}}>
-          <a href="/oauth-test" style={{ fontSize: '12px', color: '#666' }}>
-            OAuth 테스트
-          </a>
-        </div>
-        
         {/* 로그인 상태에 따라 다른 버튼 표시 */}
         {isLoggedIn ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
