@@ -25,7 +25,7 @@ function StudentRegion({ onboardingData, updateOnboardingData }) {
     try {
       await submitOnboardingData(finalData);
       localStorage.setItem('onboarding', JSON.stringify(finalData));
-      navigate('/HomeLogin');
+      navigate('/'); // ✅ 홈페이지로 이동
     } catch (error) {
       console.error('온보딩 데이터 전송 실패:', error);
     }

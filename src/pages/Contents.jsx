@@ -10,18 +10,34 @@ const Contents = () => {
       {
         id: 1,
         channel: 'naver_blog',
-        title: '네이버 블로그 마케팅 성공 사례',
-        content_url: 'https://blog.naver.com/example_blog_post',
-        thumbnail: 'https://via.placeholder.com/300x180.png?text=Naver+Blog',
+        title: '대전카페 궁동 에이트',
+        content_url: 'https://blog.naver.com/fkguswn0919/223949867605',
+        thumbnail: 'https://via.placeholder.com/300x200/FF6B6B/FFFFFF?text=카페+리뷰',
         date: '2025-07-28'
       },
       {
         id: 2,
-        channel: 'instagram',
-        title: '인스타그램 바이럴 마케팅',
-        content_url: 'https://www.instagram.com/p/example_post/',
-        thumbnail: 'https://via.placeholder.com/300x180.png?text=Instagram',
+        channel: 'naver_blog',
+        title: '제주도 카페 창업 및 폐업 현황',
+        content_url: 'https://blog.naver.com/sooheenam/223951495559',
+        thumbnail: 'https://via.placeholder.com/300x200/4ECDC4/FFFFFF?text=제주+카페',
         date: '2025-07-27'
+      },
+      {
+        id: 3,
+        channel: 'instagram',
+        title: '서울 맛집 탐방',
+        content_url: 'https://www.instagram.com/example',
+        thumbnail: 'https://via.placeholder.com/300x200/45B7D1/FFFFFF?text=맛집+리뷰',
+        date: '2025-07-26'
+      },
+      {
+        id: 4,
+        channel: 'instagram',
+        title: '패션 스타일링',
+        content_url: 'https://www.instagram.com/example2',
+        thumbnail: 'https://via.placeholder.com/300x200/96CEB4/FFFFFF?text=패션+스타일',
+        date: '2025-07-25'
       }
     ];
 
@@ -46,6 +62,12 @@ const Contents = () => {
             전체 보기
           </button>
           <button
+            className={`filter-button ${filteredChannel === 'youtube' ? 'active-youtube' : ''}`}
+            onClick={() => setFilteredChannel('youtube')}
+          >
+            유튜브
+          </button>
+          <button
             className={`filter-button ${filteredChannel === 'naver_blog' ? 'active-naver' : ''}`}
             onClick={() => setFilteredChannel('naver_blog')}
           >
@@ -61,31 +83,42 @@ const Contents = () => {
 
         {/* 콘텐츠 카드 */}
         <div className="card-grid">
-          {filteredReferences.length === 0 ? (
-            <p className="no-content">콘텐츠가 없습니다.</p>
-          ) : (
-            filteredReferences.map(ref => (
-              <div key={ref.id} className="content-card">
-                <img
-                  src={ref.thumbnail}
-                  alt={ref.title}
-                  className="content-thumbnail"
-                />
-                <h2 className="content-title">{ref.title}</h2>
-                <a
-                  href={ref.content_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="content-link"
-                >
-                  {ref.channel === 'naver_blog'
-                    ? '네이버 블로그 보기 →'
-                    : '인스타그램 보기 →'}
-                </a>
-                <p className="content-date">게시일: {ref.date}</p>
+          {filteredChannel === 'youtube' ? (
+              // 유튜브 선택 시 이미지 하나만 표시
+              <div className="youtube-content">
+                <img src="/youtube.png" alt="youtube" className="youtube-image" />
               </div>
-            ))
-          )}
+            ) : filteredReferences.length === 0 ? (
+              <p className="no-content">콘텐츠가 없습니다.</p>
+            ) : (
+              // 나머지 채널 콘텐츠 카드
+              filteredReferences.map(ref => (
+                <div key={ref.id} className="content-card">
+                  <img
+                    src={ref.thumbnail}
+                    alt={ref.title}
+                    className="content-thumbnail"
+                    onError={(e) => {
+                      e.target.src = 'https://via.placeholder.com/300x200/CCCCCC/666666?text=이미지+없음';
+                    }}
+                  />
+                  <h2 className="content-title">{ref.title}</h2>
+                  <a
+                    href={ref.content_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="content-link"
+                  >
+                    {ref.channel === 'naver_blog'
+                      ? '네이버 블로그 보기 →'
+                      : ref.channel === 'instagram'
+                      ? '인스타그램 보기 →'
+                      : '링크 보기 →'}
+                  </a>
+                  <p className="content-date">게시일: {ref.date}</p>
+                </div>
+              ))
+            )}
         </div>
       </div>
     </div>

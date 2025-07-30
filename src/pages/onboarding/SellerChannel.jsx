@@ -53,7 +53,7 @@ function SellerChannel({ onboardingData, updateOnboardingData }) {
       console.log('📤 온보딩 데이터 제출 시작:', finalData);
       await submitOnboardingData(finalData); // ✅ API 요청
       localStorage.setItem('onboarding', JSON.stringify(finalData));
-      navigate('/HomeLogin'); // ✅ 홈 또는 완료 페이지로 이동
+      navigate('/'); // ✅ 홈페이지로 이동
     } catch (error) {
       console.error('온보딩 데이터 전송 실패:', error);
       
