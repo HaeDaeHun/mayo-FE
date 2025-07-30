@@ -23,7 +23,7 @@ function SellerChannel({ onboardingData, updateOnboardingData }) {
     // 온보딩 데이터 + channel 추가
     const finalData = {
       ...onboardingData,
-      channel: selected.value // ✅ 백엔드 enum 값으로 넣기
+      prefferredChannel: selected.value // ✅ 백엔드 enum 값으로 넣기
     };
   
     try {

@@ -19,7 +19,7 @@ function StudentRegion({ onboardingData, updateOnboardingData }) {
   {/*데이터 전송 있어야 작동*/}
   const handleSubmit = async () => {
     if (!selected) return;
-    updateOnboardingData('region', selected.value);
+    updateOnboardingData('storeRegion', selected.value);
     const finalData = { ...onboardingData, region: selected.value };
 
     try {

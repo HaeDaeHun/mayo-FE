@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { submitOnboardingData } from '../api/onboardingAPI';
 import axios from 'axios';
 import Type from '../pages/onboarding/Type';
 import SellerBusinessType from '../pages/onboarding/SellerBusinessType';
@@ -72,13 +73,11 @@ export default function OnboardingRoutes() {
             updateOnboardingData={updateOnboardingData}
             onFinalSubmit={() => {
               console.log('최종 제출 데이터', onboardingData);
-              // 백엔드 API 호출하여 저장
-              axios.post('/api/onboarding', onboardingData)
+              submitOnboardingData(onboardingData)
                 .then(response => {
-                  console.log('저장 성공:', response.data);
+                  console.log('저장 성공:', response);
                   alert('회원가입이 완료되었습니다!');
-                  // 저장 성공 후 필요한 동작 수행 (예: 메인 페이지 이동)
-                  navigate('/'); 
+                  navigate('/');
                 })
                 .catch(error => {
                   console.error('저장 실패:', error);
