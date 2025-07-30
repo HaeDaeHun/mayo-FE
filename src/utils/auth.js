@@ -85,12 +85,40 @@ export const requireAuth = (navigate) => {
 
 // 토큰 디버깅 정보 출력
 export const debugTokens = () => {
+  const accessToken = localStorage.getItem('accessToken');
+  const jwtToken = localStorage.getItem('jwt');
+  const userId = localStorage.getItem('userId');
+  const expiresIn = localStorage.getItem('expiresIn');
+  const expiresAt = localStorage.getItem('expiresAt');
+  
   console.log('🔐 토큰 디버깅 정보:', {
-    accessToken: localStorage.getItem('accessToken') ? '있음' : '없음',
-    jwtToken: localStorage.getItem('jwt') ? '있음' : '없음',
-    userId: localStorage.getItem('userId'),
-    expiresIn: localStorage.getItem('expiresIn'),
-    expiresAt: localStorage.getItem('expiresAt') ? new Date(parseInt(localStorage.getItem('expiresAt'))).toLocaleString() : '없음',
-    isTokenValid: isTokenValid()
+    accessToken: accessToken ? `있음 (${accessToken.substring(0, 20)}...)` : '없음',
+    jwtToken: jwtToken ? `있음 (${jwtToken.substring(0, 20)}...)` : '없음',
+    userId,
+    expiresIn,
+    expiresAt: expiresAt ? new Date(parseInt(expiresAt)).toLocaleString() : '없음',
+    isTokenValid: isTokenValid(),
+    localStorageKeys: Object.keys(localStorage).filter(key => 
+      key.includes('token') || key.includes('Token') || key.includes('user') || key.includes('expires')
+    )
   });
+  
+  // 토큰 내용 분석 (JWT 디코딩 시도)
+  if (accessToken) {
+    try {
+      const payload = JSON.parse(atob(accessToken.split('.')[1]));
+      console.log('🔐 AccessToken 페이로드:', payload);
+    } catch (e) {
+      console.log('🔐 AccessToken은 JWT 형식이 아님');
+    }
+  }
+  
+  if (jwtToken) {
+    try {
+      const payload = JSON.parse(atob(jwtToken.split('.')[1]));
+      console.log('🔐 JWT 페이로드:', payload);
+    } catch (e) {
+      console.log('🔐 JWT 디코딩 실패');
+    }
+  }
 };

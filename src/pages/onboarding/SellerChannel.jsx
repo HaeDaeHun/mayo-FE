@@ -41,10 +41,12 @@ function SellerChannel({ onboardingData, updateOnboardingData }) {
       return;
     }
   
-    // 온보딩 데이터 + channel 추가
+    // 온보딩 데이터 + channel 추가 (백엔드 요구사항에 맞춤)
     const finalData = {
-      ...onboardingData,
-      prefferredChannel: selected.value // ✅ 백엔드 enum 값으로 넣기
+      role: "MARKETER", // 고정값
+      category: onboardingData.category || "BEAUTY", // 기본값
+      storeRegion: onboardingData.storeRegion || "GANGNAM", // 기본값
+      preferredChannel: selected.value // ✅ 오타 수정: prefferredChannel → preferredChannel
     };
   
     try {

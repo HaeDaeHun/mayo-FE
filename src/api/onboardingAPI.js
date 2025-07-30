@@ -13,11 +13,30 @@ api.interceptors.request.use(
     const accessToken = localStorage.getItem('accessToken');
     const jwtToken = localStorage.getItem('jwt');
     
-    // 토큰이 있으면 헤더에 추가
+    console.log('🔐 API 요청 시 토큰 상태:', {
+      accessToken: accessToken ? '있음' : '없음',
+      jwtToken: jwtToken ? '있음' : '없음'
+    });
+    
+    // 토큰이 있으면 헤더에 추가 (여러 형식 시도)
     if (accessToken) {
+      // Bearer 토큰 형식
       config.headers.Authorization = `Bearer ${accessToken}`;
+      console.log('🔐 Authorization 헤더 추가 (Bearer):', `Bearer ${accessToken.substring(0, 20)}...`);
     } else if (jwtToken) {
+      // JWT 토큰 형식
       config.headers.Authorization = `Bearer ${jwtToken}`;
+      console.log('🔐 Authorization 헤더 추가 (JWT):', `Bearer ${jwtToken.substring(0, 20)}...`);
+    } else {
+      console.log('⚠️ 인증 토큰이 없음');
+    }
+    
+    // 추가 인증 헤더들 (백엔드 요구사항에 따라)
+    if (accessToken) {
+      config.headers['X-Access-Token'] = accessToken;
+    }
+    if (jwtToken) {
+      config.headers['X-JWT-Token'] = jwtToken;
     }
     
     console.log('🚀 API Request:', {
@@ -26,7 +45,10 @@ api.interceptors.request.use(
       baseURL: config.baseURL,
       fullURL: config.baseURL + config.url,
       data: config.data,
-      headers: config.headers
+      headers: {
+        ...config.headers,
+        Authorization: config.headers.Authorization ? `${config.headers.Authorization.substring(0, 30)}...` : '없음'
+      }
     });
     return config;
   },
@@ -51,17 +73,23 @@ api.interceptors.response.use(
       status: error.response?.status,
       url: error.config?.url,
       message: error.message,
-      data: error.response?.data
+      data: error.response?.data,
+      headers: error.response?.headers
     });
     
     // 401 오류 시 토큰 관련 처리
     if (error.response?.status === 401) {
       console.log('🔐 401 Unauthorized - 토큰 문제');
       console.log('현재 저장된 토큰들:', {
-        accessToken: localStorage.getItem('accessToken'),
-        jwt: localStorage.getItem('jwt'),
+        accessToken: localStorage.getItem('accessToken') ? '있음' : '없음',
+        jwt: localStorage.getItem('jwt') ? '있음' : '없음',
         expiresAt: localStorage.getItem('expiresAt')
       });
+      
+      // 백엔드 응답에서 더 자세한 정보 확인
+      if (error.response?.data) {
+        console.log('🔐 백엔드 오류 상세:', error.response.data);
+      }
       
       // 토큰이 만료되었거나 없으면 로그인 페이지로 리다이렉트
       if (!localStorage.getItem('accessToken') && !localStorage.getItem('jwt')) {
