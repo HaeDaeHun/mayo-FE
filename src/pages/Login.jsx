@@ -21,7 +21,7 @@ export default function Login() {
       success: function (authObj) {
         console.log('카카오 로그인 성공', authObj);
 
-        // access_token 백엔드에 전달
+        // access_token 백엔드에 전달 - 올바른 주소 사용
         fetch('https://api.mayo.n-e.kr/oauth2/authorization/kakao', {
           method: 'POST',
           headers: {
@@ -31,13 +31,23 @@ export default function Login() {
             access_token: authObj.access_token,
           }),
         })
-          .then((res) => res.json())
+          .then((res) => {
+            console.log('Response status:', res.status);
+            if (!res.ok) {
+              throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+          })
           .then((data) => {
-            console.log('서버에서 받은 JWT:', data.token);
-            localStorage.setItem('jwt', data.token);
-
-            // 온보딩 페이지로 이동
-            navigate('/onboarding');
+            console.log('서버에서 받은 응답:', data);
+            
+            if (data.token) {
+              localStorage.setItem('jwt', data.token);
+              // 온보딩 페이지로 이동
+              navigate('/onboarding');
+            } else {
+              console.error('Invalid response from server');
+            }
           })
           .catch((err) => {
             console.error('백엔드 통신 실패:', err);
