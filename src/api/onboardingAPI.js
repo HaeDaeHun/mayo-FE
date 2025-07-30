@@ -91,10 +91,17 @@ api.interceptors.response.use(
         console.log('🔐 백엔드 오류 상세:', error.response.data);
       }
       
-      // 토큰이 만료되었거나 없으면 로그인 페이지로 리다이렉트
-      if (!localStorage.getItem('accessToken') && !localStorage.getItem('jwt')) {
-        console.log('🔐 토큰이 없음 - 로그인 페이지로 리다이렉트');
-        window.location.href = '/login';
+      // 온보딩 페이지에서는 자동 리다이렉트하지 않음
+      const currentPath = window.location.pathname;
+      if (currentPath.includes('/onboarding')) {
+        console.log('🔐 온보딩 페이지에서 401 오류 - 자동 리다이렉트 비활성화');
+        // 에러를 그대로 전달하여 컴포넌트에서 처리하도록 함
+      } else {
+        // 온보딩 페이지가 아닌 경우에만 자동 리다이렉트
+        if (!localStorage.getItem('accessToken') && !localStorage.getItem('jwt')) {
+          console.log('🔐 토큰이 없음 - 로그인 페이지로 리다이렉트');
+          window.location.href = '/login';
+        }
       }
     }
     

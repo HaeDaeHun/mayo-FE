@@ -11,6 +11,7 @@ import Profile from './pages/profile';
 import Contents from './pages/Contents';
 import Apply from './pages/Apply';
 import OAuthCallback from './pages/OAuthCallback'; // OAuth 콜백 처리 컴포넌트 추가
+import OAuthTest from './pages/OAuthTest'; // OAuth 테스트 컴포넌트 추가
 
 function App() {
   return (
@@ -50,6 +51,24 @@ function AppRoutes() {
     return (
       <Routes>
         <Route path="/api/oauth" element={<OAuthCallback />} />
+      </Routes>
+    );
+  }
+
+  if (path === '/oauth-test') {
+    // OAuth 테스트 페이지 - 레이아웃 없음
+    return (
+      <Routes>
+        <Route path="/oauth-test" element={<OAuthTest />} />
+      </Routes>
+    );
+  }
+
+  if (path === '/HomeLogin') {
+    // 백엔드에서 리다이렉트하는 HomeLogin 경로 - 레이아웃 없음
+    return (
+      <Routes>
+        <Route path="/HomeLogin" element={<HomeLogin />} />
       </Routes>
     );
   }

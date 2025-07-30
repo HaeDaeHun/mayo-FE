@@ -44,87 +44,13 @@ export default function Header() {
     }
   }, []);
 
-  // 로그인 함수 - 카카오 SDK 직접 사용
+  // 로그인 함수 - 백엔드 OAuth 플로우 사용
   const handleKakaoLogin = () => {
-    // 백엔드 OAuth 플로우 강제 사용 (문제 해결을 위해)
-    const forceBackendOAuth = true;
-    
-    if (forceBackendOAuth) {
-      console.log('Using backend OAuth flow...');
-      const oauthUrl = 'https://api.mayo.n-e.kr/oauth2/authorization/kakao';
-      window.location.href = oauthUrl;
-      return;
-    }
-
-    if (!window.Kakao) {
-      console.error('Kakao SDK not loaded');
-      return;
-    }
-
-    console.log('Starting Kakao login...');
-    
-    window.Kakao.Auth.login({
-      scope: 'profile_nickname,account_email',
-      success: function (authObj) {
-        console.log('카카오 로그인 성공', authObj);
-
-        // access_token → 백엔드 전달
-        fetch('/oauth2/authorization/kakao', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ access_token: authObj.access_token }),
-        })
-          .then((res) => {
-            console.log('Response status:', res.status);
-            if (!res.ok) {
-              throw new Error(`HTTP error! status: ${res.status}`);
-            }
-            return res.json();
-          })
-          .then((data) => {
-            console.log('서버에서 받은 응답:', data);
-            
-            if (data.accessToken) {
-              localStorage.setItem('accessToken', data.accessToken);
-              localStorage.setItem('expiresIn', data.expiresIn);
-              localStorage.setItem('userId', data.userId);
-              
-              // 토큰 만료 시간 계산 및 저장
-              if (data.expiresIn) {
-                const expiresAt = Date.now() + (parseInt(data.expiresIn) * 1000);
-                localStorage.setItem('expiresAt', expiresAt.toString());
-              }
-              
-              // isNewUser에 따라 라우팅
-              if (data.isNewUser) {
-                console.log('New user detected, redirecting to onboarding');
-                navigate('/onboarding/step1');
-              } else {
-                console.log('Existing user detected, redirecting to home');
-                navigate('/');
-              }
-            } else {
-              console.error('Invalid response from server');
-            }
-          })
-          .catch((err) => {
-            console.error('백엔드 통신 실패:', err);
-            // 에러 발생 시 백엔드 OAuth 플로우로 폴백
-            console.log('Falling back to backend OAuth flow...');
-            const oauthUrl = 'https://api.mayo.n-e.kr/oauth2/authorization/kakao';
-            window.location.href = oauthUrl;
-          });
-      },
-      fail: function (err) {
-        console.error('카카오 로그인 실패', err);
-        // 실패 시 백엔드 OAuth 플로우로 폴백
-        console.log('Falling back to backend OAuth flow...');
-        const oauthUrl = 'https://api.mayo.n-e.kr/oauth2/authorization/kakao';
-        window.location.href = oauthUrl;
-      },
-    });
+    // 백엔드 OAuth 플로우 사용
+    console.log('Using backend OAuth flow...');
+    const oauthUrl = 'https://api.mayo.n-e.kr/oauth2/authorization/kakao';
+    console.log('Redirecting to:', oauthUrl);
+    window.location.href = oauthUrl;
   };
 
   // 로그아웃 함수

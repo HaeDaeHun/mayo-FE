@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate, useSearchParams } from 'react-router-dom';
 import { submitOnboardingData } from '../api/onboardingAPI';
+import { debugTokens } from '../utils/auth';
 import axios from 'axios';
 import Type from '../pages/onboarding/Type';
 import SellerBusinessType from '../pages/onboarding/SellerBusinessType';
@@ -10,8 +11,48 @@ import StudentRegion from '../pages/onboarding/StudentRegion';
 
 export default function OnboardingRoutes() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const [onboardingData, setOnboardingData] = useState({});
+
+  // URL 파라미터에서 토큰 처리
+  useEffect(() => {
+    console.log('🔄 OnboardingRoutes - URL 파라미터 처리 시작');
+    
+    // URL 파라미터 파싱
+    const accessToken = searchParams.get('accessToken');
+    const expiresIn = searchParams.get('expiresIn');
+    const isNewUser = searchParams.get('isNewUser') === 'true';
+    const userId = searchParams.get('userId');
+
+    console.log('📥 OnboardingRoutes 파라미터:', {
+      accessToken: accessToken ? '있음' : '없음',
+      expiresIn,
+      isNewUser,
+      userId
+    });
+
+    if (accessToken) {
+      console.log('💾 토큰 저장 시작...');
+      
+      // 토큰을 로컬 스토리지에 저장
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('expiresIn', expiresIn);
+      localStorage.setItem('userId', userId);
+
+      // 토큰 만료 시간 계산 및 저장
+      if (expiresIn) {
+        const expiresAt = Date.now() + (parseInt(expiresIn) * 1000);
+        localStorage.setItem('expiresAt', expiresAt.toString());
+        console.log('⏰ 토큰 만료 시간 설정:', new Date(expiresAt).toLocaleString());
+      }
+
+      console.log('✅ 토큰 저장 완료');
+      debugTokens();
+    } else {
+      console.log('⚠️ 토큰이 없음 - 일반 온보딩 페이지');
+    }
+  }, [searchParams]);
 
   const updateOnboardingData = (key, value) => {
     setOnboardingData((prev) => ({
