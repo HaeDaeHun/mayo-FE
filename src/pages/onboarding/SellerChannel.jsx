@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Channel.module.css';
 import 채널 from './Channels';
 import { useNavigate } from 'react-router-dom';
 import { submitOnboardingData } from '../../api/onboardingAPI';
+import { debugTokens, isTokenValid } from '../../utils/auth';
 
 function SellerChannel({ onboardingData, updateOnboardingData }) {
   const navigate = useNavigate();
   const [selected, setSelected] = useState(null); // ✅ 선택된 채널 저장
+
+  // 컴포넌트 마운트 시 토큰 상태 확인
+  useEffect(() => {
+    console.log('🔐 SellerChannel - 토큰 상태 확인');
+    debugTokens();
+    
+    if (!isTokenValid()) {
+      console.log('🔐 토큰이 유효하지 않음 - 로그인 페이지로 이동');
+      navigate('/login');
+      return;
+    }
+  }, [navigate]);
 
   const handleBack = () => {
     navigate(-1);
@@ -20,6 +33,14 @@ function SellerChannel({ onboardingData, updateOnboardingData }) {
   const handleSubmit = async () => {
     if (!selected) return;
   
+    // 토큰 상태 재확인
+    if (!isTokenValid()) {
+      console.log('🔐 제출 시 토큰이 유효하지 않음');
+      alert('로그인이 필요합니다. 다시 로그인해주세요.');
+      navigate('/login');
+      return;
+    }
+  
     // 온보딩 데이터 + channel 추가
     const finalData = {
       ...onboardingData,
@@ -27,12 +48,20 @@ function SellerChannel({ onboardingData, updateOnboardingData }) {
     };
   
     try {
+      console.log('📤 온보딩 데이터 제출 시작:', finalData);
       await submitOnboardingData(finalData); // ✅ API 요청
       localStorage.setItem('onboarding', JSON.stringify(finalData));
       navigate('/HomeLogin'); // ✅ 홈 또는 완료 페이지로 이동
     } catch (error) {
       console.error('온보딩 데이터 전송 실패:', error);
-      alert('제출 중 오류가 발생했어요. 다시 시도해주세요.');
+      
+      // 토큰 관련 오류인지 확인
+      if (error.message.includes('인증') || error.message.includes('토큰')) {
+        alert('로그인이 만료되었습니다. 다시 로그인해주세요.');
+        navigate('/login');
+      } else {
+        alert('제출 중 오류가 발생했어요. 다시 시도해주세요.');
+      }
     }
   };
   
