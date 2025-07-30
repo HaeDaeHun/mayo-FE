@@ -87,18 +87,7 @@ function Home() {
         <h1>홍보 콘텐츠</h1>
         <Link to="/Contents">상세보기 →</Link>
         <div className="video-grid">
-          {contents.map((c, i) => (
-            <a
-              className="video-card"
-              key={i}
-              href={c.link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={c.thumbnail} alt={c.title} className="video-thumb" />
-              <div className="video-title">{c.title}</div>
-            </a>
-          ))}
+          <img src="/preview.png" alt="preview" className="preview-image" />
         </div>
       </div>
     </div>

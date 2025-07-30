@@ -12,7 +12,7 @@ const Contents = () => {
         channel: 'naver_blog',
         title: '대전카페 궁동 에이트',
         content_url: 'https://blog.naver.com/fkguswn0919/223949867605',
-        thumbnail: 'https://via.placeholder.com/300x200/FF6B6B/FFFFFF?text=카페+리뷰',
+        thumbnail: 'https://blogthumb.pstatic.net/MjAyNTA3MjhfMjg2/MDAxNzUzNjgxMDQwOTQ3.zIuuSavKHFt0xKGBBRWuIYkP0Vb5WB4qP20Ax0m3zdMg.R21RhYNsDZNDjDDmwz_fvOJSxqD8KKt_KWE4oH2JfyIg.JPEG/IMG%A3%DF9189.JPG?type=s2',
         date: '2025-07-28'
       },
       {
