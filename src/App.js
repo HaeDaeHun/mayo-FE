@@ -53,16 +53,7 @@ function AppRoutes() {
       </Routes>
     );
   }
-/*
-  if (path === '/HomeLogin') {
-    // 백엔드에서 리다이렉트하는 HomeLogin 경로 - 레이아웃 없음
-    return (
-      <Routes>
-        <Route path="/HomeLogin" element={<HomeLogin />} />
-      </Routes>
-    );
-  }
-*/
+
   // 기본: 헤더 + 레프트바 (SidebarLayout 사용)
   return (
     <Routes>
